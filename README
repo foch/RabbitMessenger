@@ -1,0 +1,11 @@
+Messenger for Nabaztag.
+Optimized for deployment on Google App Engine.
+
+This project is in French.
+
+Set up:
+- install Google plug-in for Eclipse
+- check out this project
+- create a new GWT application with Google App Engine to get the necessary libs in war/WEB-INF/lib
+- copy the libs to the RabbitMessenger project
+- deploy to Google App Engine!
