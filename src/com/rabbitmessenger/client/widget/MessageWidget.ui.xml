@@ -1,0 +1,28 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:style>
+		button {
+			margin-bottom: 30px;
+		}
+	</ui:style>
+
+
+	<g:VerticalPanel>
+
+		<g:Label ui:field="statusLabel" />
+
+		<g:Label>Entre ton nom:</g:Label>
+		<g:TextBox ui:field="nameBox" />
+
+		<g:Label>Entre ton message:</g:Label>
+		<g:TextBox ui:field="messageBox" />
+		<g:Button ui:field="messageButton" enabled="false" styleName="style.button">Envoyer</g:Button>
+
+		<g:Label>Envoie un MP3 (URL):</g:Label>
+		<g:TextBox ui:field="mp3Box" />
+		<g:Button ui:field="mp3Button" enabled="false" styleName="style.button">Jouer</g:Button>
+
+	</g:VerticalPanel>
+
+</ui:UiBinder>
