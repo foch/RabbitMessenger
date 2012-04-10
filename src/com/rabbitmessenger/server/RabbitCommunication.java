@@ -1,3 +1,21 @@
+/*
+ * This file is part of Rabbit Messenger.
+ * 
+ * Rabbit Messenger is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * Rabbit Messenger is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * Rabbit Messenger. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Copyright 2012 Julien Faucher
+ */
 package com.rabbitmessenger.server;
 
 import java.io.BufferedReader;
@@ -6,13 +24,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-
 public class RabbitCommunication {
-
-	public static AtomicInteger spaceCounter = new AtomicInteger(0);
 
 	public static final ConfigurationManager config = ConfigurationManager
 			.getInstance();
@@ -40,13 +54,6 @@ public class RabbitCommunication {
 
 	private static boolean sendURL(String inputUrl) {
 
-		// add some spaces at the end of the URL to avoid caching by Google.
-		// int addSpaces = spaceCounter.incrementAndGet() % 32;
-		// StringBuilder sb = new StringBuilder(inputUrl);
-		// for (int i = 0; i < addSpaces; i++) {
-		// sb.append("%20");
-		// }
-		// inputUrl = sb.toString();
 		inputUrl = inputUrl.replaceAll(" ", "%20");
 
 		log.fine("Calling URL: " + inputUrl);
