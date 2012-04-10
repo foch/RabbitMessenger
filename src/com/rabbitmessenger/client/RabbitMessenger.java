@@ -1,6 +1,7 @@
 package com.rabbitmessenger.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.rabbitmessenger.client.presenter.MessagePresenter;
 import com.rabbitmessenger.client.widget.MessageWidget;
@@ -32,7 +33,8 @@ public class RabbitMessenger implements EntryPoint {
 		// get the rabbit status
 		messagePresenter.fetchRabbitStatus();
 
-		RootPanel.get("mainPanel").add(mainView);
+		//RootPanel.get("mainPanel").add(mainView);
+		RootLayoutPanel.get().add(mainView);
 	}
 
 	public static String getRabbitName() {

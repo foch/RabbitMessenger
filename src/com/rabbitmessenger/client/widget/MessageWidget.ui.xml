@@ -8,21 +8,62 @@
 	</ui:style>
 
 
-	<g:VerticalPanel>
+	<g:DockLayoutPanel unit='EM'>
 
-		<g:Label ui:field="statusLabel" />
+		<g:north size='23'>
+			<g:HorizontalPanel width="100%" height="100%">
+				<g:cell horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_TOP">
+					<g:HTML>
+						<h1>Rabbit Messenger.</h1>
+						<img src="nabaztag.jpeg" alt="nabaztag" />
+					</g:HTML>
+				</g:cell>
+			</g:HorizontalPanel>
+		</g:north>
 
-		<g:Label>Entre ton nom:</g:Label>
-		<g:TextBox ui:field="nameBox" />
+		<g:center>
+			<g:HorizontalPanel width="100%" height="100%">
+				<g:cell horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_TOP">
+					<g:VerticalPanel styleName="style.verticalPanel">
 
-		<g:Label>Entre ton message:</g:Label>
-		<g:TextBox ui:field="messageBox" />
-		<g:Button ui:field="messageButton" enabled="false" styleName="style.button">Envoyer</g:Button>
+						<g:Label ui:field="statusLabel" />
 
-		<g:Label>Envoie un MP3 (URL):</g:Label>
-		<g:TextBox ui:field="mp3Box" />
-		<g:Button ui:field="mp3Button" enabled="false" styleName="style.button">Jouer</g:Button>
+						<g:Label>Entre ton nom:</g:Label>
+						<g:TextBox ui:field="nameBox" />
 
-	</g:VerticalPanel>
+						<g:Label>Entre ton message:</g:Label>
+						<g:TextBox ui:field="messageBox" />
+						<g:Button ui:field="messageButton" enabled="false"
+							styleName="style.button">
+							Envoyer
+						</g:Button>
+
+						<g:Label>Envoie un MP3 (URL):</g:Label>
+						<g:TextBox ui:field="mp3Box" />
+						<g:Button ui:field="mp3Button" enabled="false" styleName="style.button">
+							Jouer
+						</g:Button>
+					</g:VerticalPanel>
+				</g:cell>
+			</g:HorizontalPanel>
+
+		</g:center>
+
+		<g:south size='2'>
+			<g:HorizontalPanel width="100%" height="100%">
+				<g:cell horizontalAlignment="ALIGN_RIGHT" verticalAlignment="ALIGN_TOP">
+					<g:HTML>
+						Powered by
+						<a href="https://developers.google.com/appengine/">Google App Engine</a>
+						. Hosted on
+						<a href="http://github.com/foch/RabbitMessenger">GitHub</a>
+						.
+					</g:HTML>
+				</g:cell>
+			</g:HorizontalPanel>
+
+		</g:south>
+
+	</g:DockLayoutPanel>
 
 </ui:UiBinder>
