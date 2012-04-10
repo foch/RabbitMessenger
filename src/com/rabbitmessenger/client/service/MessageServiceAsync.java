@@ -11,4 +11,6 @@ public interface MessageServiceAsync {
 	void getStatus(AsyncCallback<Boolean> callback);
 
 	void playMP3(String mp3, AsyncCallback<Boolean> callback);
+
+	void getRabbitName(AsyncCallback<String> callback);
 }

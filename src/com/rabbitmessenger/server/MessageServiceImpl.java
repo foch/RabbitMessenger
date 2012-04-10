@@ -15,6 +15,14 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 	private static final Logger log = Logger.getLogger(MessageServiceImpl.class
 			.getName());
 
+	public static final ConfigurationManager config = ConfigurationManager
+			.getInstance();
+	
+	@Override
+	public String getRabbitName() {
+		return config.getRabbitName();
+	}
+	
 	@Override
 	public boolean sendMessage(String name, String message)
 			throws IllegalArgumentException {
@@ -95,4 +103,5 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
 				.replaceAll(">", "&gt;").replaceAll(" ", "%20").toLowerCase();
 	}
+
 }

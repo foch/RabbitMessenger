@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.rabbitmessenger.client.RabbitMessenger;
 import com.rabbitmessenger.client.view.MessageView;
 
 public class MessageWidget extends Composite implements MessageView {
@@ -21,6 +22,7 @@ public class MessageWidget extends Composite implements MessageView {
 	private static final MessageUiBinder uiBinder = GWT
 			.create(MessageUiBinder.class);
 
+	
 	@UiField
 	Label statusLabel;
 	
@@ -68,9 +70,9 @@ public class MessageWidget extends Composite implements MessageView {
 	@Override
 	public void setStatus(boolean status) {
 		if (status) {
-			statusLabel.setText("Heisenberg est allumé !!! Envoie lui un message.");
+			statusLabel.setText(RabbitMessenger.getRabbitName() + " est allumé !!! Envoie lui un message.");
 		} else {
-			statusLabel.setText("Heisenberg est éteint :( Repasse plus tard.");
+			statusLabel.setText(RabbitMessenger.getRabbitName() + " est éteint :( Repasse plus tard.");
 		}
 		
 		messageButton.setEnabled(status);

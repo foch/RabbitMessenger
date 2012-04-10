@@ -1,6 +1,7 @@
 package com.rabbitmessenger.client.presenter;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.rabbitmessenger.client.RabbitMessenger;
 import com.rabbitmessenger.client.service.MessageServiceAsync;
 import com.rabbitmessenger.client.view.MessageView;
 
@@ -17,7 +18,7 @@ public class MessagePresenter implements MessageView.Presenter {
 		this.messageView = messageView;
 	}
 
-	private static final String SERVER_ERROR = "Il y a eu un erreur. Essaye une autre fois !";
+	private static final String SERVER_ERROR = "Il y a eu une erreur. Essaye une autre fois !";
 	private static final String MESSAGE_SENT = "Ton message a été envoyé à Heisenberg !";
 	private static final String MP3_SENT = "Ton mp3 a été envoyé à Heisenberg !";
 
@@ -38,7 +39,7 @@ public class MessagePresenter implements MessageView.Presenter {
 	}
 
 	@Override
-	public void getStatus() {
+	public void fetchRabbitStatus() {
 		messageService.getStatus(new AsyncCallback<Boolean>() {
 
 			@Override
@@ -65,6 +66,22 @@ public class MessagePresenter implements MessageView.Presenter {
 			@Override
 			public void onSuccess(Boolean result) {
 				messageView.showMessage(result ? MP3_SENT : SERVER_ERROR);
+			}
+		});
+	}
+
+	@Override
+	public void fetchRabbitName() {
+		messageService.getRabbitName(new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				messageView.showMessage(SERVER_ERROR);
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				RabbitMessenger.setRabbitName(result);
 			}
 		});
 	}

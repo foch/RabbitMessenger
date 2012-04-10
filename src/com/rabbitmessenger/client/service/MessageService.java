@@ -9,6 +9,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("message")
 public interface MessageService extends RemoteService {
 
+	String getRabbitName();
+	
 	boolean sendMessage(String name, String message)
 			throws IllegalArgumentException;
 

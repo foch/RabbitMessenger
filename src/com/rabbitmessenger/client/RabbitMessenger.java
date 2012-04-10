@@ -9,7 +9,10 @@ import com.rabbitmessenger.client.widget.MessageWidget;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class RabbitMessenger implements EntryPoint {
+
 	private final ApplicationController controller = new ApplicationController();
+
+	private static String rabbitName;
 
 	/**
 	 * This is the entry point method.
@@ -23,10 +26,21 @@ public class RabbitMessenger implements EntryPoint {
 
 		mainView.setPresenter(messagePresenter);
 
+		// get the rabbit name first
+		messagePresenter.fetchRabbitName();
+		
 		// get the rabbit status
-		messagePresenter.getStatus();
-		
+		messagePresenter.fetchRabbitStatus();
+
 		RootPanel.get("mainPanel").add(mainView);
-		
 	}
+
+	public static String getRabbitName() {
+		return rabbitName;
+	}
+
+	public static void setRabbitName(String rabbitName) {
+		RabbitMessenger.rabbitName = rabbitName;
+	}
+
 }
