@@ -20,6 +20,7 @@ package com.rabbitmessenger.client.service;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.rabbitmessenger.shared.StatusWrapper;
 
 /**
  * The client side stub for the RPC service.
@@ -27,13 +28,11 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("message")
 public interface MessageService extends RemoteService {
 
-	String getRabbitName();
-	
-	boolean sendMessage(String name, String message)
+	StatusWrapper sendMessage(String name, String message)
 			throws IllegalArgumentException;
 
-	boolean getStatus() throws IllegalArgumentException;
+	StatusWrapper getStatus() throws IllegalArgumentException;
 
-	boolean playMP3(String mp3) throws IllegalArgumentException;
+	StatusWrapper playMP3(String mp3) throws IllegalArgumentException;
 
 }

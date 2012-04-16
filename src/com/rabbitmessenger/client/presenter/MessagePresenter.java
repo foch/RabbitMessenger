@@ -19,9 +19,9 @@
 package com.rabbitmessenger.client.presenter;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.rabbitmessenger.client.RabbitMessenger;
 import com.rabbitmessenger.client.service.MessageServiceAsync;
 import com.rabbitmessenger.client.view.MessageView;
+import com.rabbitmessenger.shared.StatusWrapper;
 
 public class MessagePresenter implements MessageView.Presenter {
 
@@ -37,16 +37,14 @@ public class MessagePresenter implements MessageView.Presenter {
 	}
 
 	private static final String SERVER_ERROR = "Il y a eu une erreur. Essaye une autre fois !";
-	private static final String MESSAGE_SENT = "Ton message a été envoyé à Heisenberg !";
-	private static final String MP3_SENT = "Ton mp3 a été envoyé à Heisenberg !";
 
 	@Override
 	public void sendMessage(String name, String message) {
-		messageService.sendMessage(name, message, new AsyncCallback<Boolean>() {
+		messageService.sendMessage(name, message, new AsyncCallback<StatusWrapper>() {
 
 			@Override
-			public void onSuccess(Boolean result) {
-				messageView.showMessage(result ? MESSAGE_SENT : SERVER_ERROR);
+			public void onSuccess(StatusWrapper result) {
+				messageView.showMessage(result.getStatus() ? result.getMessage() : SERVER_ERROR);
 			}
 
 			@Override
@@ -58,7 +56,7 @@ public class MessagePresenter implements MessageView.Presenter {
 
 	@Override
 	public void fetchRabbitStatus() {
-		messageService.getStatus(new AsyncCallback<Boolean>() {
+		messageService.getStatus(new AsyncCallback<StatusWrapper>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -66,15 +64,15 @@ public class MessagePresenter implements MessageView.Presenter {
 			}
 
 			@Override
-			public void onSuccess(Boolean result) {
-				messageView.setStatus(result);
+			public void onSuccess(StatusWrapper result) {
+				messageView.setStatus(result.getStatus());
 			}
 		});
 	}
 
 	@Override
 	public void playMP3(String mp3) {
-		messageService.playMP3(mp3, new AsyncCallback<Boolean>() {
+		messageService.playMP3(mp3, new AsyncCallback<StatusWrapper>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -82,24 +80,8 @@ public class MessagePresenter implements MessageView.Presenter {
 			}
 
 			@Override
-			public void onSuccess(Boolean result) {
-				messageView.showMessage(result ? MP3_SENT : SERVER_ERROR);
-			}
-		});
-	}
-
-	@Override
-	public void fetchRabbitName() {
-		messageService.getRabbitName(new AsyncCallback<String>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				messageView.showMessage(SERVER_ERROR);
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				RabbitMessenger.setRabbitName(result);
+			public void onSuccess(StatusWrapper result) {
+				messageView.showMessage(result.getStatus() ? result.getMessage() : SERVER_ERROR);
 			}
 		});
 	}

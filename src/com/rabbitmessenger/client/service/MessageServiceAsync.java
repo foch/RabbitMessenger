@@ -19,16 +19,15 @@
 package com.rabbitmessenger.client.service;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.rabbitmessenger.shared.StatusWrapper;
 
 /**
  * The async counterpart of <code>GreetingService</code>.
  */
 public interface MessageServiceAsync {
-	void sendMessage(String name, String message, AsyncCallback<Boolean> callback);
+	void sendMessage(String name, String message, AsyncCallback<StatusWrapper> callback);
 
-	void getStatus(AsyncCallback<Boolean> callback);
+	void getStatus(AsyncCallback<StatusWrapper> callback);
 
-	void playMP3(String mp3, AsyncCallback<Boolean> callback);
-
-	void getRabbitName(AsyncCallback<String> callback);
+	void playMP3(String mp3, AsyncCallback<StatusWrapper> callback);
 }

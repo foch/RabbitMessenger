@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.rabbitmessenger.client.service.MessageService;
+import com.rabbitmessenger.shared.StatusWrapper;
 
 /**
  * The server side implementation of the RPC service.
@@ -36,13 +37,11 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 	public static final ConfigurationManager config = ConfigurationManager
 			.getInstance();
 	
-	@Override
-	public String getRabbitName() {
-		return config.getRabbitName();
-	}
+	private static final String MESSAGE_SENT = "Ton message a été envoyé à ";
+	private static final String MP3_SENT = "Ton mp3 a été envoyé à Heisenberg !";
 	
 	@Override
-	public boolean sendMessage(String name, String message)
+	public StatusWrapper sendMessage(String name, String message)
 			throws IllegalArgumentException {
 
 		log.info("Received message '" + message + "' from " + name);
@@ -60,7 +59,7 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 
 		if (result == false) {
 			log.warning("Unable to send: " + msg);
-			return false;
+			return StatusWrapper.create(false, "Unable to send message");
 		}
 
 		try {
@@ -68,23 +67,23 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 		} catch (InterruptedException e) {
 			log.severe("InterruptedException: " + e.getLocalizedMessage());
 			e.printStackTrace();
-			return false;
+			return StatusWrapper.create(false, "InterruptedException caught");
 		}
 
-		return true;
+		return StatusWrapper.create(true, MESSAGE_SENT + config.getRabbitName() + " !");
 	}
 
 	@Override
-	public boolean getStatus() throws IllegalArgumentException {
+	public StatusWrapper getStatus() throws IllegalArgumentException {
 
 		log.fine("Get status");
 
 		// send an empty message
-		return RabbitCommunication.sendMessage("");
+		return StatusWrapper.create(RabbitCommunication.sendMessage(""), "");
 	}
 
 	@Override
-	public boolean playMP3(String mp3) throws IllegalArgumentException {
+	public StatusWrapper playMP3(String mp3) throws IllegalArgumentException {
 
 		log.info("Playing MP3 " + mp3);
 
@@ -92,7 +91,7 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 		boolean result = RabbitCommunication.playMP3(mp3);
 		if (result == false) {
 			log.warning("Unable to play MP3: " + mp3);
-			return false;
+			return StatusWrapper.create(false, "Unable to play MP3");
 		}
 		
 		try {
@@ -100,10 +99,10 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			log.severe("InterruptedException: " + e.getLocalizedMessage());
-			return false;
+			return StatusWrapper.create(false, "InterruptedException caught");
 		}
 
-		return true;
+		return StatusWrapper.create(true, MP3_SENT + config.getRabbitName() + " !");
 	}
 
 	/**
