@@ -36,10 +36,13 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 
 	public static final ConfigurationManager config = ConfigurationManager
 			.getInstance();
-	
-	private static final String MESSAGE_SENT = "Ton message a été envoyé à ";
-	private static final String MP3_SENT = "Ton mp3 a été envoyé à Heisenberg !";
-	
+
+	private static final String MESSAGE_SENT = "Ton message a été envoyé à %s !";
+	private static final String MP3_SENT = "Ton mp3 a été envoyé à %s !";
+
+	private static final String RABBIT_ON = "%s est allumé !!! Envoie lui un message.";
+	private static final String RABBIT_OFF = "%s est éteint :( Repasse plus tard.";
+
 	@Override
 	public StatusWrapper sendMessage(String name, String message)
 			throws IllegalArgumentException {
@@ -70,7 +73,8 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 			return StatusWrapper.create(false, "InterruptedException caught");
 		}
 
-		return StatusWrapper.create(true, MESSAGE_SENT + config.getRabbitName() + " !");
+		return StatusWrapper.create(true,
+				String.format(MESSAGE_SENT, config.getRabbitName()));
 	}
 
 	@Override
@@ -79,7 +83,10 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 		log.fine("Get status");
 
 		// send an empty message
-		return StatusWrapper.create(RabbitCommunication.sendMessage(""), "");
+		boolean status = RabbitCommunication.sendMessage("");
+		String message = String.format(status ? RABBIT_ON : RABBIT_OFF,
+				config.getRabbitName());
+		return StatusWrapper.create(status, message);
 	}
 
 	@Override
@@ -93,7 +100,7 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 			log.warning("Unable to play MP3: " + mp3);
 			return StatusWrapper.create(false, "Unable to play MP3");
 		}
-		
+
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -102,7 +109,8 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 			return StatusWrapper.create(false, "InterruptedException caught");
 		}
 
-		return StatusWrapper.create(true, MP3_SENT + config.getRabbitName() + " !");
+		return StatusWrapper.create(true,
+				String.format(MP3_SENT, config.getRabbitName()));
 	}
 
 	/**

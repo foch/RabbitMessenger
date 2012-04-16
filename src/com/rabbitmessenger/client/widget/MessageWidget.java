@@ -29,8 +29,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.rabbitmessenger.client.RabbitMessenger;
 import com.rabbitmessenger.client.view.MessageView;
+import com.rabbitmessenger.shared.StatusWrapper;
 
 public class MessageWidget extends Composite implements MessageView {
 
@@ -40,22 +40,21 @@ public class MessageWidget extends Composite implements MessageView {
 	private static final MessageUiBinder uiBinder = GWT
 			.create(MessageUiBinder.class);
 
-	
 	@UiField
 	Label statusLabel;
-	
+
 	@UiField
 	TextBox nameBox;
 
 	@UiField
 	TextBox messageBox;
-	
+
 	@UiField
 	Button messageButton;
-	
+
 	@UiField
 	TextBox mp3Box;
-	
+
 	@UiField
 	Button mp3Button;
 
@@ -69,7 +68,7 @@ public class MessageWidget extends Composite implements MessageView {
 	void handleMessageButtonClick(ClickEvent e) {
 		presenter.sendMessage(nameBox.getText(), messageBox.getText());
 	}
-	
+
 	@UiHandler("mp3Button")
 	void handleMP3ButtonClick(ClickEvent e) {
 		presenter.playMP3(mp3Box.getText());
@@ -84,17 +83,12 @@ public class MessageWidget extends Composite implements MessageView {
 	public void setPresenter(Presenter presenter) {
 		this.presenter = presenter;
 	}
-	
+
 	@Override
-	public void setStatus(boolean status) {
-		if (status) {
-			statusLabel.setText(RabbitMessenger.getRabbitName() + " est allumé !!! Envoie lui un message.");
-		} else {
-			statusLabel.setText(RabbitMessenger.getRabbitName() + " est éteint :( Repasse plus tard.");
-		}
-		
-		messageButton.setEnabled(status);
-		mp3Button.setEnabled(status);
+	public void setStatus(StatusWrapper status) {
+		statusLabel.setText(status.getMessage());
+		messageButton.setEnabled(status.getStatus());
+		mp3Button.setEnabled(status.getStatus());
 	}
 
 }

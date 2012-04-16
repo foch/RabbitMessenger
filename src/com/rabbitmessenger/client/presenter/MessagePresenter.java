@@ -65,7 +65,7 @@ public class MessagePresenter implements MessageView.Presenter {
 
 			@Override
 			public void onSuccess(StatusWrapper result) {
-				messageView.setStatus(result.getStatus());
+				messageView.setStatus(result);
 			}
 		});
 	}
