@@ -40,6 +40,9 @@ public class MessageWidget extends Composite implements MessageView {
 	private static final MessageUiBinder uiBinder = GWT
 			.create(MessageUiBinder.class);
 
+	private static final String EMPTY_FIELD_MESSAGE = "Il faut mettre ton nom et ton message, banane !!!";
+	private static final String EMPTY_FIELD_MP3 = "Il faut mettre ton MP3, espèce de nouille !!!";
+	
 	@UiField
 	Label statusLabel;
 
@@ -66,11 +69,21 @@ public class MessageWidget extends Composite implements MessageView {
 
 	@UiHandler("messageButton")
 	void handleMessageButtonClick(ClickEvent e) {
+		
+		if ("".equals(nameBox.getText()) || "".equals(messageBox.getText())) {
+			Window.alert(EMPTY_FIELD_MESSAGE);
+			return;
+		}
 		presenter.sendMessage(nameBox.getText(), messageBox.getText());
 	}
 
 	@UiHandler("mp3Button")
 	void handleMP3ButtonClick(ClickEvent e) {
+		
+		if ("".equals(mp3Box.getText())) {
+			Window.alert(EMPTY_FIELD_MP3);
+			return;
+		}
 		presenter.playMP3(mp3Box.getText());
 	}
 
