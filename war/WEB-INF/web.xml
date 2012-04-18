@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>messageServlet</servlet-name>
-    <servlet-class>com.rabbitmessenger.server.MessageServiceImpl</servlet-class>
+    <servlet-class>com.rabbitmessenger.server.service.MessageServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
