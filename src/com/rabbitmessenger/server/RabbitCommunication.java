@@ -82,7 +82,7 @@ public class RabbitCommunication {
 				reader.close();
 			} else {
 				// Server returned HTTP error code.
-				log.severe("Received HTTP error code: "
+				log.info("Received HTTP error code: "
 						+ connection.getResponseCode());
 				return false;
 			}
