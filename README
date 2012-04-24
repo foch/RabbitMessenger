@@ -4,8 +4,10 @@ Optimized for deployment on Google App Engine.
 This project is in French.
 
 Set up:
-- install Google plug-in for Eclipse
-- check out this project
+- register your rabbit on http://www.nabaztag.com
+- install Eclipse, Google plug-in for Eclipse and Git.
+- check out this project with Git.
 - create a new GWT application with Google App Engine to get the necessary libs in war/WEB-INF/lib
 - copy the libs to the RabbitMessenger project
+- change the configuration: put your Rabbit name, token and S/N
 - deploy to Google App Engine!
