@@ -59,13 +59,11 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 		name = escapeHtml(name);
 		message = escapeHtml(message);
 
-		boolean result = false;
-
 		String msg = "vous avez un message de la part de " + name + ". "
 				+ message;
-		result = getRabbitCommunication().sendMessage(msg);
+		boolean result = getRabbitCommunication().sendMessage(msg);
 
-		if (result == false) {
+		if (!result) {
 			log.warning("Unable to send: " + msg);
 			return StatusWrapper.create(false, "Unable to send message");
 		}
@@ -101,7 +99,7 @@ public class MessageServiceImpl extends RemoteServiceServlet implements
 
 		// send an empty message
 		boolean result = getRabbitCommunication().playMP3(mp3);
-		if (result == false) {
+		if (!result) {
 			log.warning("Unable to play MP3: " + mp3);
 			return StatusWrapper.create(false, "Unable to play MP3");
 		}
